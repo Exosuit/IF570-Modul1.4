@@ -50,7 +50,7 @@ class PlantDetailFragmentTest {
 
     @Rule
     @JvmField
-    val activityTestRule = ActivityScenarioRule(GardenActivity::class.java)
+    val composeTestRule = createAndroidComposeRule<GardenActivity>()
 
     // Note that keeping these references is only safe if the activity is not recreated.
     private lateinit var activity: ComponentActivity
@@ -59,7 +59,7 @@ class PlantDetailFragmentTest {
     fun jumpToPlantDetailFragment() {
         populateDatabase()
 
-        activityTestRule.scenario.onActivity { gardenActivity ->
+        composeTestRule.activityRule.scenario.onActivity { gardenActivity ->
             activity = gardenActivity
 
             val bundle = Bundle().apply { putString("plantId", "malus-pumila") }
