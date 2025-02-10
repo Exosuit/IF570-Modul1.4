@@ -39,8 +39,21 @@ class PlantDetailFragment : Fragment() {
 }
 
 @Composable
-fun PlantDetailDescription() {
-    Surface {
-        Text("Hello Compose")
+private fun PlantName(name: String) {
+    Text(
+        text = name,
+        style = MaterialTheme.typography.headlineSmall,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = dimensionResource(R.dimen.margin_small))
+            .wrapContentWidth(Alignment.CenterHorizontally)
+    )
+}
+
+@Preview
+@Composable
+private fun PlantNamePreview() {
+    MaterialTheme {
+        PlantName("Apple")
     }
 }

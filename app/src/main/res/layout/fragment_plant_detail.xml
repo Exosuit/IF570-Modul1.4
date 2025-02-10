@@ -93,18 +93,25 @@
             android:paddingBottom="@dimen/fab_bottom_padding"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <!-- Step 2) Comment out ConstraintLayout and its children –->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/margin_normal">
+                android:layout_margin="@dimen/margin_normal"
+                tools:ignore="ExtraText">
 
                 <TextView
                     android:id="@+id/plant_detail_name"
-                ...
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:gravity="center_horizontal"
+                    android:text="@{viewModel.plant.name}"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <!-- End Step 2) Comment out until here –->
 
             <!-- Step 3) Add a ComposeView to host Compose code –->
             <androidx.compose.ui.platform.ComposeView
