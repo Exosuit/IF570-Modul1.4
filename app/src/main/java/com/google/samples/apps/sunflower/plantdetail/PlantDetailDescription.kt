@@ -19,6 +19,7 @@ package com.google.samples.apps.sunflower.plantdetail
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
 
 class PlantDetailFragment : Fragment() {
     // ...
@@ -30,7 +31,7 @@ class PlantDetailFragment : Fragment() {
             composeView.setContent {
                 // You're in Compose world!
                 MaterialTheme {
-                    PlantDetailDescription()
+                    PlantDetailDescription(plantDetailViewModel)
                 }
             }
         }
@@ -55,5 +56,30 @@ private fun PlantName(name: String) {
 private fun PlantNamePreview() {
     MaterialTheme {
         PlantName("Apple")
+    }
+}
+
+@Composable
+fun PlantDetailDescription(plantDetailViewModel: PlantDetailViewModel) {
+    // Observes values coming from the VM's LiveData<Plant> field
+    val plant by plantDetailViewModel.plant.observeAsState()
+
+    // If plant is not null, display the content
+    plant?.let {
+        PlantDetailContent(it)
+    }
+}
+
+@Composable
+fun PlantDetailContent(plant: Plant) {
+    PlantName(plant.name)
+}
+
+@Preview
+@Composable
+private fun PlantDetailContentPreview() {
+    val plant = Plant("id", "Apple", "description", 3, 30, "")
+    MaterialTheme {
+        PlantDetailContent(plant)
     }
 }
