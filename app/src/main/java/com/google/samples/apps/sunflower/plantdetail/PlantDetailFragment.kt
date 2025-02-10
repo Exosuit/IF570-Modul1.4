@@ -118,7 +118,7 @@ class PlantDetailFragment : Fragment() {
                     ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
                 )
                 setContent {
-                    MaterialTheme {
+                    SunflowerTheme {
                         PlantDetailDescription(plantDetailViewModel)
                     }
                 }
