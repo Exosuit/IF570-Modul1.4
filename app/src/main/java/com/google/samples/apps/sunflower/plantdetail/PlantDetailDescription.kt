@@ -20,6 +20,24 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
+class PlantDetailFragment : Fragment() {
+    // ...
+    override fun onCreateView(...): View? {
+        val binding = DataBindingUtil.inflate<FragmentPlantDetailBinding>(
+            inflater, R.layout.fragment_plant_detail, container, false
+        ).apply {
+            // ...
+            composeView.setContent {
+                // You're in Compose world!
+                MaterialTheme {
+                    PlantDetailDescription()
+                }
+            }
+        }
+        // ...
+    }
+}
+
 @Composable
 fun PlantDetailDescription() {
     Surface {
