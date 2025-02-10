@@ -36,6 +36,7 @@ import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.databinding.FragmentPlantDetailBinding
 import com.google.samples.apps.sunflower.utilities.InjectorUtils
 import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
+import androidx.compose.ui.platform.ViewCompositionStrategy
 
 /**
  * A fragment representing a single Plant detail screen.
@@ -52,7 +53,7 @@ class PlantDetailFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         val binding = DataBindingUtil.inflate<FragmentPlantDetailBinding>(
             inflater,
             R.layout.fragment_plant_detail,
@@ -61,7 +62,8 @@ class PlantDetailFragment : Fragment() {
         ).apply {
             viewModel = plantDetailViewModel
             lifecycleOwner = viewLifecycleOwner
-            callback = object : Callback {
+            callback = object : Callback
+            {
                 override fun add(plant: Plant?) {
                     plant?.let {
                         hideAppBarFab(fab)
@@ -109,7 +111,20 @@ class PlantDetailFragment : Fragment() {
                     else -> false
                 }
             }
+            composeView.apply {
+                // Dispose the Composition when the view's LifecycleOwner
+                // is destroyed
+                setViewCompositionStrategy(
+                    ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
+                )
+                setContent {
+                    MaterialTheme {
+                        PlantDetailDescription(plantDetailViewModel)
+                    }
+                }
+            }
         }
+
         setHasOptionsMenu(true)
 
         return binding.root
